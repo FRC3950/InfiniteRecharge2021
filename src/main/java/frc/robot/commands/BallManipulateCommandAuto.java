@@ -12,29 +12,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.BallCounterSubsystem;
 import frc.robot.subsystems.BallManipulatorSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class BallManipulateCommand extends CommandBase {
+public class BallManipulateCommandAuto extends CommandBase {
   /**
    * Creates a new BallManipulateCommand.
    */
   public IntakeSubsystem m_intakeSubsystem;
   public BallManipulatorSubsystem m_ballManipulatorSubsystem;
   public BallCounterSubsystem m_ballCounterSubsystem;
+  public DrivetrainSubsystem m_drivetrainSubsystem;
+
   int ballCount;
   String sensors;
   int motors;
   String startValues;
+  Boolean finished;
+  double encoderCount;
 
-  public BallManipulateCommand(IntakeSubsystem intakeSubsystem, BallManipulatorSubsystem ballManipulatorSubsystem, BallCounterSubsystem ballCounterSubsystem) {
+  public BallManipulateCommandAuto(IntakeSubsystem intakeSubsystem, BallManipulatorSubsystem ballManipulatorSubsystem, BallCounterSubsystem ballCounterSubsystem, DrivetrainSubsystem drivetrainSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intakeSubsystem = intakeSubsystem;
     m_ballManipulatorSubsystem = ballManipulatorSubsystem;
     m_ballCounterSubsystem = ballCounterSubsystem;
+    m_drivetrainSubsystem = drivetrainSubsystem;
     // addRequirements(ballManipulatorSubsystem);
-    SmartDashboard.putString("test" ,"");
-    SmartDashboard.putString("sensor string", "");
-
   }
 
   // Called when the command is initially scheduled.
@@ -42,6 +45,9 @@ public class BallManipulateCommand extends CommandBase {
   public void initialize() {
     System.out.println("ball manipulate");
     startValues = "2222";
+    finished = false;
+    m_drivetrainSubsystem.resetEncoderCount();
+    encoderCount = m_drivetrainSubsystem.getEncoderCount();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -71,22 +77,43 @@ public class BallManipulateCommand extends CommandBase {
 
   //NOT FOR CHALLENGES 2021
 
-
-  System.out.println("execute");
-    ballCount = Robot.ballCount;
+  while(encoderCount < 800000){
+    m_drivetrainSubsystem.motorSpeed(1);
+    encoderCount = m_drivetrainSubsystem.getEncoderCount();
+    //System.out.println("execute");
     sensors = m_ballCounterSubsystem.getSensorValues();
-    motors = m_ballCounterSubsystem.getMotorsBasedOnBalls(sensors);
+    //System.out.println(sensors);
+    // motors = m_ballCounterSubsystem.getMotorsBasedOnBalls(sensors);
     //SmartDashboard.putString("test" ,m_ballManipulatorSubsystem.manipulate(ballCount, sensors));
-    SmartDashboard.putString("motors", "" + motors);
-    
-    if(ballCount == 2 && sensors.charAt(0)== '0'){
+    //SmartDashboard.putString("motors", "" + motors);
+    if(sensors.charAt(0)== '0' && sensors.charAt(1)== '0' && sensors.charAt(2)== '0' && sensors.charAt(3)== '0'){
       m_intakeSubsystem.setIntakeMotor(0);
       m_intakeSubsystem.setSingulatorMotor(0);
     }else{
       m_intakeSubsystem.setIntakeMotor(.9);
       m_intakeSubsystem.setSingulatorMotor(1);
+      //System.out.println("intke");
     }
-    m_ballManipulatorSubsystem.autoBallManipulatorMotors(motors);
+    if(sensors.charAt(2)== '0' && sensors.charAt(3)== '0'){
+      m_ballManipulatorSubsystem.setConveyorMotor(0);
+    }else{
+      m_ballManipulatorSubsystem.setConveyorMotor(-1);
+      //System.out.println("convey");
+
+    }
+    if(sensors.charAt(3)== '0'){
+      m_ballManipulatorSubsystem.setBallIndexerMotor(0);
+    }else{
+      m_ballManipulatorSubsystem.setBallIndexerMotor(1);
+      //System.out.println("index");
+
+    }
+    //System.out.println("execute2");
+  }
+  finished = true;
+
+  
+
   }
 
   // Called once the command ends or is interrupted.
@@ -102,6 +129,7 @@ public class BallManipulateCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    System.out.println("finisjed");
+    return finished;
   }
 }

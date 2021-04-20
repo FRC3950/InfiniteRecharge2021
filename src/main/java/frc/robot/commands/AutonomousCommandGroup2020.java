@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.BallCounterSubsystem;
 import frc.robot.subsystems.BallManipulatorSubsystem;
@@ -25,22 +26,20 @@ public class AutonomousCommandGroup2020 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelDeadlineGroup(
-        new TurretSetAngleCommand(limelightSubsystem, turretSubsystem), 
-        new ShootBallCommand(shooterSubsystem, ballManipulatorSubsystem, ballCounterSubsystem, intakeSubsystem, limelightSubsystem, turretSubsystem)
-      ),
-      new ParallelDeadlineGroup(
-        new AutoDriveForwardCommand(drivetrainSubsystem),
-        new BallManipulateCommand(intakeSubsystem, ballManipulatorSubsystem, ballCounterSubsystem)
-      ),
-      new ParallelDeadlineGroup(
-        new TurretSetAngleCommand(limelightSubsystem, turretSubsystem), 
-        new AutoDriveBackwardCommand(drivetrainSubsystem)
-      ),
-      new ParallelDeadlineGroup(
-        new TurretSetAngleCommand(limelightSubsystem, turretSubsystem), 
-        new ShootBallCommand(shooterSubsystem, ballManipulatorSubsystem, ballCounterSubsystem, intakeSubsystem, limelightSubsystem, turretSubsystem)
-      ) 
-    );
+      new SequentialCommandGroup(
+        new ParallelRaceGroup(
+          new TurretSetAngleCommand(limelightSubsystem, turretSubsystem), 
+          new BUTTONShootBallCommand(ballManipulatorSubsystem, shooterSubsystem, intakeSubsystem, limelightSubsystem)
+        ),
+        new IntakeLiftCommand(intakeSubsystem),
+        new BallManipulateCommandAuto(intakeSubsystem, ballManipulatorSubsystem, ballCounterSubsystem, drivetrainSubsystem),
+        new AutoDriveBackwardCommand(drivetrainSubsystem),
+        new ParallelDeadlineGroup(
+          new ShootBallCommand(ballManipulatorSubsystem, shooterSubsystem, intakeSubsystem, limelightSubsystem),
+          new TurretSetAngleCommand(limelightSubsystem, turretSubsystem)
+        ) 
+      )
+      );
+      
   }
 }

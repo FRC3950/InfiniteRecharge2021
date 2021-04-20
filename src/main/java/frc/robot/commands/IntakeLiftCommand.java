@@ -23,7 +23,7 @@ public class IntakeLiftCommand extends CommandBase {
   public IntakeLiftCommand(IntakeSubsystem intakeSubsystem) {
     m_intakeSubsystem = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem);
+    //addRequirements(intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -36,6 +36,7 @@ public class IntakeLiftCommand extends CommandBase {
   @Override
   public void execute() {
     m_intakeSubsystem.changeIntakePosition();
+    //System.out.println("Intake lift command");
     // position = m_intakeSubsystem.m_intakeSolenoid.get().toString();
     // System.out.println(position);
     // if(m_intakeSubsystem.m_intakeSolenoid.get() == Value.kReverse){
@@ -61,7 +62,6 @@ public class IntakeLiftCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("end");
   }
 
   // Returns true when the command should end.

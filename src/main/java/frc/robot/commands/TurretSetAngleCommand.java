@@ -25,8 +25,8 @@ public class TurretSetAngleCommand extends CommandBase {
     m_limelightSubsystem = limelightSubsystem;
     m_turretSubsystem = turretSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(limelightSubsystem);
-    addRequirements(turretSubsystem);
+    //addRequirements(limelightSubsystem);
+    //addRequirements(turretSubsystem);
     
   }
 

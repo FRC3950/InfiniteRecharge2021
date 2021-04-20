@@ -12,23 +12,36 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.AutoAdvancedCommandGroup;
-import frc.robot.commands.AutoBasicCommandGroup;
 import frc.robot.commands.AutoDriveBackwardCommand;
 import frc.robot.commands.AutoDriveForwardCommand;
-import frc.robot.commands.AutoDriveToBallCommand;
 import frc.robot.commands.AutonomousCommandGroup2020;
 import frc.robot.commands.BUTTONShootBallCommand;
 import frc.robot.commands.BallManipulateCommand;
+import frc.robot.commands.BallManipulateCommandAuto;
 import frc.robot.commands.BallOverrideCommand;
 import frc.robot.commands.ClimberLowerCommand;
 import frc.robot.commands.ClimberRaiseCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveShiftGearCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.GSCPlanACommandGroup;
+import frc.robot.commands.GSCPlanADriveCommand;
+import frc.robot.commands.GSCPlanADriveCommand2;
+import frc.robot.commands.GSCPlanADriveCommand3;
+import frc.robot.commands.GSCPlanADriveCommand4;
+import frc.robot.commands.GSCPlanADriveCommand5;
+import frc.robot.commands.GSCPlanADriveCommand6;
+import frc.robot.commands.GSCPlanADriveCommand7;
+import frc.robot.commands.GSCPlanBCommandGroup;
+import frc.robot.commands.GSCPlanBDriveCommand;
+import frc.robot.commands.GSCPlanBDriveCommand2;
+import frc.robot.commands.GSCPlanBDriveCommand3;
+import frc.robot.commands.GSCPlanBDriveCommand4;
+import frc.robot.commands.GSCPlanBDriveCommand5;
+import frc.robot.commands.GSCPlanBDriveCommand6;
+import frc.robot.commands.GSCPlanBDriveCommand7;
 import frc.robot.commands.IntakeBallCommand;
 import frc.robot.commands.IntakeLiftCommand;
-import frc.robot.commands.MoveBallCommandGroup;
 import frc.robot.commands.ResetBallCountCommand;
 import frc.robot.commands.ShootBallCommand;
 import frc.robot.commands.TurretSetAngleCommand;
@@ -39,6 +52,7 @@ import frc.robot.subsystems.BallManipulatorSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GyroSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -47,6 +61,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -67,26 +82,41 @@ public class RobotContainer {
   public final LimelightSubsystem m_limelightSubsystem = new LimelightSubsystem();
   public final ShooterSubsystem m_shooterSubsystem  = new ShooterSubsystem();
   public final TurretSubsystem m_turretSubsystem = new TurretSubsystem();
+  public final GyroSubsystem m_gyroSubsystem = new GyroSubsystem();
+  
 
-  public final AutoBasicCommandGroup m_autoBasicCommandGroup = new AutoBasicCommandGroup(m_drivetrainSubsystem, m_shooterSubsystem, m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_intakeSubsystem, m_limelightSubsystem, m_turretSubsystem);
-  public final AutoAdvancedCommandGroup m_autoAdvancedCommandGroup = new AutoAdvancedCommandGroup(m_drivetrainSubsystem, m_shooterSubsystem, m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_intakeSubsystem, m_limelightSubsystem, m_turretSubsystem);
   public final AutonomousCommandGroup2020 m_autonomousCommandGroup2020 = new AutonomousCommandGroup2020(m_drivetrainSubsystem, m_shooterSubsystem, m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_intakeSubsystem, m_limelightSubsystem, m_turretSubsystem);
+  public final GSCPlanACommandGroup m_gscPlanACommandGroup = new GSCPlanACommandGroup(m_drivetrainSubsystem, m_ballManipulatorSubsystem, m_intakeSubsystem, m_gyroSubsystem);
+  public final GSCPlanBCommandGroup m_gscPlanBCommandGroup = new GSCPlanBCommandGroup(m_drivetrainSubsystem, m_ballManipulatorSubsystem, m_intakeSubsystem, m_gyroSubsystem);
+
 
   public final AutoDriveForwardCommand m_autoDriveForwardCommand = new AutoDriveForwardCommand(m_drivetrainSubsystem);
   public final AutoDriveBackwardCommand m_autoDriveBackwardCommand = new AutoDriveBackwardCommand(m_drivetrainSubsystem);
-  public final AutoDriveToBallCommand m_autoDriveToBallCommand = new AutoDriveToBallCommand(m_drivetrainSubsystem, m_ballCounterSubsystem, Robot.ourFieldPosition);
   public final BallOverrideCommand m_ballOverrideCommand = new BallOverrideCommand(m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_intakeSubsystem);
   public final BallManipulateCommand m_ballManipulateCommand = new BallManipulateCommand(m_intakeSubsystem, m_ballManipulatorSubsystem, m_ballCounterSubsystem);
+  public final BallManipulateCommandAuto m_ballManipulateCommandAuto = new BallManipulateCommandAuto(m_intakeSubsystem, m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_drivetrainSubsystem);
   public final ClimberLowerCommand m_climberLowerCommand = new ClimberLowerCommand(m_climberSubsystem);
   public final ClimberRaiseCommand m_climberRaiseCommand = new ClimberRaiseCommand(m_climberSubsystem);
   public final DriveCommand m_driveCommand = new DriveCommand(m_drivetrainSubsystem);
   public final DriveShiftGearCommand m_driveShiftGearCommand = new DriveShiftGearCommand(m_drivetrainSubsystem);
+  public final GSCPlanADriveCommand m_gscPlanADriveCommand = new GSCPlanADriveCommand(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanADriveCommand2 m_gscPlanADriveCommand2 = new GSCPlanADriveCommand2(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanADriveCommand3 m_gscPlanADriveCommand3 = new GSCPlanADriveCommand3(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanADriveCommand4 m_gscPlanADriveCommand4 = new GSCPlanADriveCommand4(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);  
+  public final GSCPlanADriveCommand5 m_gscPlanADriveCommand5 = new GSCPlanADriveCommand5(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanADriveCommand6 m_gscPlanADriveCommand6 = new GSCPlanADriveCommand6(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanADriveCommand7 m_gscPlanADriveCommand7 = new GSCPlanADriveCommand7(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem); 
+  public final GSCPlanBDriveCommand m_gscPlanBDriveCommand = new GSCPlanBDriveCommand(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanBDriveCommand2 m_gscPlanBDriveCommand2 = new GSCPlanBDriveCommand2(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanBDriveCommand3 m_gscPlanBDriveCommand3 = new GSCPlanBDriveCommand3(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanBDriveCommand4 m_gscPlanBDriveCommand4 = new GSCPlanBDriveCommand4(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);  
+  public final GSCPlanBDriveCommand5 m_gscPlanBDriveCommand5 = new GSCPlanBDriveCommand5(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanBDriveCommand6 m_gscPlanBDriveCommand6 = new GSCPlanBDriveCommand6(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
+  public final GSCPlanBDriveCommand7 m_gscPlanBDriveCommand7 = new GSCPlanBDriveCommand7(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);   
   public final IntakeBallCommand m_intakeBallCommand = new IntakeBallCommand(m_intakeSubsystem, m_ballCounterSubsystem);
   public final IntakeLiftCommand m_intakeLiftCommand = new IntakeLiftCommand(m_intakeSubsystem);
-  public final MoveBallCommandGroup m_moveBallCommand = new MoveBallCommandGroup(m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_intakeSubsystem);
   public final ResetBallCountCommand m_resetBallCountCommand = new ResetBallCountCommand(m_ballCounterSubsystem);
-  public final ShootBallCommand m_shootBallCommand = new ShootBallCommand(m_shooterSubsystem, 
-      m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_intakeSubsystem, m_limelightSubsystem, m_turretSubsystem);
+  public final ShootBallCommand m_shootBallCommand = new ShootBallCommand(m_ballManipulatorSubsystem, m_shooterSubsystem, m_intakeSubsystem, m_limelightSubsystem);
   public final BUTTONShootBallCommand m_BUTTONShootBallCommand = new BUTTONShootBallCommand(m_ballManipulatorSubsystem, m_shooterSubsystem, m_intakeSubsystem, m_limelightSubsystem);
   public final TurretSetAngleCommand m_turretSetAngleCommand = new TurretSetAngleCommand(m_limelightSubsystem, m_turretSubsystem);
   // public final TurretSpinCommand m_turretSpinCommand = new TurretSpinCommand(m_turretSubsystem);
@@ -148,6 +178,7 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_ballCounterChooser);
 
+
   }
 
 /**
@@ -174,6 +205,10 @@ public class RobotContainer {
     driveStick2Button.whenPressed(m_driveShiftGearCommand);
     driveStick9Button.whenPressed(m_resetBallCountCommand);
     driveStick10Button.toggleWhenPressed(m_turretSetAngleCommand);
+    driveStick7Button.whenPressed(m_gscPlanBCommandGroup);
+    driveStick8Button.whenPressed(m_gscPlanACommandGroup);
+
+
   }
 
 
@@ -184,7 +219,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoBasicCommandGroup;
+    return m_gscPlanBCommandGroup;
     // return m_autoAdvancedCommandGroup; CHANGE TO THIS WHEN TESTING ADVANCED AUTO
   }
 }

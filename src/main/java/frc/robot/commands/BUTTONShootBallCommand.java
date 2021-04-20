@@ -22,6 +22,7 @@ public class BUTTONShootBallCommand extends CommandBase {
   public ShooterSubsystem m_shooterSubsystem;
   public IntakeSubsystem m_intakeSubsystem;
   public LimelightSubsystem m_limelightSubsystem;
+  public boolean finished;
 
   public BUTTONShootBallCommand(BallManipulatorSubsystem ballManipulatorSubsystem, ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem, LimelightSubsystem limelightSubsystem){
     m_ballManipulatorSubsystem = ballManipulatorSubsystem;
@@ -35,11 +36,13 @@ public class BUTTONShootBallCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    finished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     double setSpeed = m_limelightSubsystem.getVerticalAngle() * 295 + 30719;
     //System.out.println("SET" + setSpeed + "   ACTUAL" + m_shooterSubsystem.getVelocityFromEncoder());
     m_shooterSubsystem.setShooterMotor(setSpeed);
@@ -49,10 +52,13 @@ public class BUTTONShootBallCommand extends CommandBase {
     if(m_shooterSubsystem.getVelocityFromEncoder() < -1 * setSpeed - 1400 && (m_limelightSubsystem.getAngle() > -1 || m_limelightSubsystem.getAngle() < 1)){
       m_intakeSubsystem.setSingulatorMotor(.4);
       m_ballManipulatorSubsystem.setConveyorMotor(-1);
-      m_ballManipulatorSubsystem.setBallIndexerMotor(1);  
+      m_ballManipulatorSubsystem.setBallIndexerMotor(1); 
+      m_intakeSubsystem.setIntakeMotor(1); 
     }
     //System.out.println("SET" + setSpeed + "   ACTUAL" + m_shooterSubsystem.getVelocityFromEncoder());
-
+    if(Robot.ballCount == 0){
+      finished = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -62,12 +68,13 @@ public class BUTTONShootBallCommand extends CommandBase {
     m_ballManipulatorSubsystem.setBallIndexerMotor(0);
     m_shooterSubsystem.setShooterMotor(0);
     m_intakeSubsystem.setSingulatorMotor(0);
+    m_intakeSubsystem.setIntakeMotor(0);
     
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return finished;
   }
 }

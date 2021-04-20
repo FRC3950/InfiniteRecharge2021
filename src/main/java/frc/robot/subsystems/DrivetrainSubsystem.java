@@ -63,12 +63,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // }
     y = y * y * y;
     m_drive.arcadeDrive(-y, twist);
+    //System.out.println("twist"+ twist);
+    //System.out.println("y"+ y);
   }
 
   //Sets the motor to a certain speed without the joystick 
   //Used for Autonomous Code
-  public void motorSpeed(){
-    m_drive.arcadeDrive(.5,0);
+  public void motorSpeed(double speed){
+    m_drive.arcadeDrive(speed,0);
+  }
+  public void motorAngle(double speed, double angle){
+    m_drive.arcadeDrive(speed,angle);
   }
 
   //Makes sure that if the drivetrain motors ever exceed 55 Amps the gear will automatically shift to low gear
@@ -104,12 +109,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     double encoderCount = getEncoderCount();
     if(direction){
       speed = .5;
+      while(encoderCount < desiredEncoderCount){
+        motorSpeed(speed);
+        encoderCount = getEncoderCount();
+      }
     }else{
-      speed = -.5;
+      speed = -1;
+      while(encoderCount > desiredEncoderCount){
+        motorSpeed(speed);
+        encoderCount = getEncoderCount();
+      }
     }
-    if(encoderCount > desiredEncoderCount){
-      drive(speed, 0);
-    }
+    drive(speed, 0);
+    System.out.println("auto drive");
     return true;
   }
 

@@ -19,7 +19,7 @@ public class AutoDriveForwardCommand extends CommandBase {
   public AutoDriveForwardCommand(DrivetrainSubsystem drivetrainSubsystem) {
     m_drivetrainSubsystem = drivetrainSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrainSubsystem);
+    //addRequirements(drivetrainSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +31,7 @@ public class AutoDriveForwardCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    finished = m_drivetrainSubsystem.autoDriveToBall(4000, true);
+    finished = m_drivetrainSubsystem.autoDriveToBall(800000, true);
   }
 
   // Called once the command ends or is interrupted.

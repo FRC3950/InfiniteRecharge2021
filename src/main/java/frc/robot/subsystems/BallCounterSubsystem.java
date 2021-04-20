@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BallCounterSubsystem extends SubsystemBase {
@@ -21,27 +22,41 @@ public class BallCounterSubsystem extends SubsystemBase {
   //sensor right before indexer. May need to change channel
   private int ballCount; // initial ball sensor and indexer ball sensor contribute to ball count
   private int ballsInConveyer;
-  private boolean previousEntryValue;
-  private boolean previousIndexerValue;
+  // private boolean previousEntryValue;
+  // private boolean previousIndexerValue;
+  // private String startValues = "2222";
 
 
   public BallCounterSubsystem() {
-    ballCount = 0;
+    //ballCount = 0;
   }
 
   //Gets a value for the ball sensors every 50 ms
   @Override
   public void periodic() {
+    //SmartDashboard.putNumber("ball count",ballCount);
+
     // This method will be called once per scheduler run
-      if (previousEntryValue == true && entrySensor.get() == false) {
-        ballCount++;
-      }
-      if (previousIndexerValue && !indexerSensor.get()) {
-        ballCount--;
-      }
-      previousEntryValue = entrySensor.get();
-      previousIndexerValue = indexerSensor.get();
-      
+      // if (previousEntryValue == true && entrySensor.get() == false) {
+      //   ballCount++;
+      // }
+      // if (previousIndexerValue && !indexerSensor.get()) {
+      //   ballCount--;
+      // }
+      // previousEntryValue = entrySensor.get();
+      // previousIndexerValue = indexerSensor.get();
+      // if(startValues.charAt(1) == '1' && getSensorValues().charAt(1) == '0'){
+      //   ballCount++;
+      // }
+      // if(startValues.charAt(3) == '0' && getSensorValues().charAt(3) == '1'){
+      //   ballCount--;
+      // }
+
+      // System.out.println(startValues.charAt(1));
+      // System.out.println(m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(1));
+      // System.out.println(m_robotContainer.m_ballManipulatorSubsystem.getConveyorMotor());
+      //System.out.println(ballCount);
+      //startValues = getSensorValues();
   }
   
   //returns the entry ball sensors value
@@ -49,7 +64,7 @@ public class BallCounterSubsystem extends SubsystemBase {
     return (entrySensor.get() ? 1 : 0);
   }
 
-  //returns the initial conveyor sensors value
+  //returns the initial conveyor sensors value 
   public int getInitialConveyorSensorValue(){
     return (initialConveyorSensor.get() ? 1 : 0) ;
   }

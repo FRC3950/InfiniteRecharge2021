@@ -49,17 +49,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
   // Allows the driver to raise or lower the intake with a button
   public void changeIntakePosition() {
-    // System.out.println("execute");
-    // if (m_intakeSolenoid.get() == DoubleSolenoid.Value.kForward) {
-    //   m_intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
-    //   System.out.println(m_intakeSolenoid.get());
-    //   System.out.println("if");
-    //   return true;
-    // } else {
-    //   m_intakeSolenoid.set(DoubleSolenoid.Value.kForward);
-    //   System.out.println("else");
-    //   return true;
-    // }
     if(m_intakeSolenoid.get() == DoubleSolenoid.Value.kReverse){
       m_intakeSolenoid.set(DoubleSolenoid.Value.kForward);
     } else{
