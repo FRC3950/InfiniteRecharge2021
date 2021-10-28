@@ -42,7 +42,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooterMotor.configPeakOutputForward(1, 30);
     m_shooterMotor.configPeakOutputReverse(-1, 30);
 
-   m_shooterMotor.config_kF(0, kF, 30);
+    m_shooterMotor.config_kF(0, kF, 30);
     m_shooterMotor.config_kP(0, kP, 30);
     m_shooterMotor.config_kI(0, kI, 30);
     m_shooterMotor.config_kD(0, kD, 30);

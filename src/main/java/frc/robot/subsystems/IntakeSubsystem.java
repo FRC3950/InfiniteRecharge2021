@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -18,13 +19,13 @@ public class IntakeSubsystem extends SubsystemBase {
    * Creates a new IntakeSubsystem.
    */
 
-  private final WPI_TalonSRX m_intakeMotor;
+  private final WPI_TalonFX m_intakeMotor;
   private final WPI_TalonSRX m_singulatorMotor;
   private final DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(1,0);
 
   public IntakeSubsystem() {
 
-    m_intakeMotor = new WPI_TalonSRX(4);
+    m_intakeMotor = new WPI_TalonFX(4);
     m_singulatorMotor = new WPI_TalonSRX(6);
 
 
@@ -39,6 +40,7 @@ public class IntakeSubsystem extends SubsystemBase {
   //Sets the motor for the intake rollers to a certain speed
   public void setIntakeMotor(final double speed) {
     m_intakeMotor.set(speed);
+    System.out.println("Motor");
   }
 
   // Sets the motor for the mecanum intake wheels to a certain speed

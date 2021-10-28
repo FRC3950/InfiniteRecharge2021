@@ -45,7 +45,8 @@ public class BUTTONShootBallCommand extends CommandBase {
     
     double setSpeed = m_limelightSubsystem.getVerticalAngle() * 295 + 30719;
     //System.out.println("SET" + setSpeed + "   ACTUAL" + m_shooterSubsystem.getVelocityFromEncoder());
-    m_shooterSubsystem.setShooterMotor(setSpeed);
+    m_shooterSubsystem.setShooterMotor(setSpeed);  
+  // m_shooterSubsystem.setShooterMotor(33000); //disable this for vision
 
     //*insert if statement here to ensure the shooter motor is at a close enough speed to the set speed, and the turret is centered on target)
     // if(current speed is close enough to the set speed AND the turret is centered close enough to 0 degrees)

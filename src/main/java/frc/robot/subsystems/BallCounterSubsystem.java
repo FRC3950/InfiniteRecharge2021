@@ -123,6 +123,10 @@ public class BallCounterSubsystem extends SubsystemBase {
     return indexerSensor.get();
   }
 
+  public boolean isBallInSingulator(){
+    return entrySensor.get();
+  }
+
   //Determines how many balls are in the conveyer belt 
   public int ballsInConveyer(){
     ballsInConveyer = ballCount;
@@ -150,3 +154,5 @@ public class BallCounterSubsystem extends SubsystemBase {
     return count;
   }
 }
+
+

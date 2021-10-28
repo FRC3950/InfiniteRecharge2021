@@ -12,51 +12,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.AutoDriveBackwardCommand;
-import frc.robot.commands.AutoDriveForwardCommand;
-import frc.robot.commands.AutonomousCommandGroup2020;
-import frc.robot.commands.BUTTONShootBallCommand;
-import frc.robot.commands.BallManipulateCommand;
-import frc.robot.commands.BallManipulateCommandAuto;
-import frc.robot.commands.BallOverrideCommand;
-import frc.robot.commands.ClimberLowerCommand;
-import frc.robot.commands.ClimberRaiseCommand;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveShiftGearCommand;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.GSCPlanACommandGroup;
-import frc.robot.commands.GSCPlanADriveCommand;
-import frc.robot.commands.GSCPlanADriveCommand2;
-import frc.robot.commands.GSCPlanADriveCommand3;
-import frc.robot.commands.GSCPlanADriveCommand4;
-import frc.robot.commands.GSCPlanADriveCommand5;
-import frc.robot.commands.GSCPlanADriveCommand6;
-import frc.robot.commands.GSCPlanADriveCommand7;
-import frc.robot.commands.GSCPlanBCommandGroup;
-import frc.robot.commands.GSCPlanBDriveCommand;
-import frc.robot.commands.GSCPlanBDriveCommand2;
-import frc.robot.commands.GSCPlanBDriveCommand3;
-import frc.robot.commands.GSCPlanBDriveCommand4;
-import frc.robot.commands.GSCPlanBDriveCommand5;
-import frc.robot.commands.GSCPlanBDriveCommand6;
-import frc.robot.commands.GSCPlanBDriveCommand7;
-import frc.robot.commands.IntakeBallCommand;
-import frc.robot.commands.IntakeLiftCommand;
-import frc.robot.commands.ResetBallCountCommand;
-import frc.robot.commands.ShootBallCommand;
-import frc.robot.commands.TurretSetAngleCommand;
-import frc.robot.commands.TurretSpinLeftCommand;
-import frc.robot.commands.TurretSpinRightCommand;
-import frc.robot.subsystems.BallCounterSubsystem;
-import frc.robot.subsystems.BallManipulatorSubsystem;
-import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.GyroSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.TurretSubsystem;
+
+
+
+import frc.robot.commands.*;
+
+import frc.robot.subsystems.*;
+
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -113,7 +76,7 @@ public class RobotContainer {
   public final GSCPlanBDriveCommand5 m_gscPlanBDriveCommand5 = new GSCPlanBDriveCommand5(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
   public final GSCPlanBDriveCommand6 m_gscPlanBDriveCommand6 = new GSCPlanBDriveCommand6(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);
   public final GSCPlanBDriveCommand7 m_gscPlanBDriveCommand7 = new GSCPlanBDriveCommand7(m_drivetrainSubsystem, m_gyroSubsystem, m_intakeSubsystem, m_ballManipulatorSubsystem);   
-  public final IntakeBallCommand m_intakeBallCommand = new IntakeBallCommand(m_intakeSubsystem, m_ballCounterSubsystem);
+  public final IntakeBallCommand m_intakeBallCommand = new IntakeBallCommand(m_intakeSubsystem, m_ballCounterSubsystem, m_ballManipulatorSubsystem);
   public final IntakeLiftCommand m_intakeLiftCommand = new IntakeLiftCommand(m_intakeSubsystem);
   public final ResetBallCountCommand m_resetBallCountCommand = new ResetBallCountCommand(m_ballCounterSubsystem);
   public final ShootBallCommand m_shootBallCommand = new ShootBallCommand(m_ballManipulatorSubsystem, m_shooterSubsystem, m_intakeSubsystem, m_limelightSubsystem);
@@ -196,8 +159,21 @@ public class RobotContainer {
     xboxControllerAButton.whileHeld(m_BUTTONShootBallCommand);
     //xboxControllerBButton.toggleWhenPressed(m_shootBallCommand);
     xboxControllerBButton.whenPressed(m_intakeLiftCommand);
+
+
+
+
+    //We need to find out why X button is not turning on motor
     xboxControllerXButton.whileHeld(m_intakeBallCommand);
+
+
+
+
+
     xboxControllerYButton.whileHeld(m_ballManipulateCommand);
+
+
+    
     xboxControllerLBButton.whileHeld(m_climberLowerCommand);
     xboxControllerRBButton.whileHeld(m_climberRaiseCommand);
     xboxControllerStartButton.whenPressed(m_ballOverrideCommand);
