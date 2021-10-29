@@ -40,7 +40,7 @@ public class IntakeSubsystem extends SubsystemBase {
   //Sets the motor for the intake rollers to a certain speed
   public void setIntakeMotor(final double speed) {
     m_intakeMotor.set(speed);
-    System.out.println("Motor");
+    // System.out.println("Motor");
   }
 
   // Sets the motor for the mecanum intake wheels to a certain speed

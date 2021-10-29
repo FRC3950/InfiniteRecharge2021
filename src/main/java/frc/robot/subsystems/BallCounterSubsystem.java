@@ -26,8 +26,12 @@ public class BallCounterSubsystem extends SubsystemBase {
   // private boolean previousIndexerValue;
   // private String startValues = "2222";
 
+  public int[] ballCountArray = new int[4];
+
 
   public BallCounterSubsystem() {
+    
+
     //ballCount = 0;
   }
 
@@ -58,6 +62,8 @@ public class BallCounterSubsystem extends SubsystemBase {
       //System.out.println(ballCount);
       //startValues = getSensorValues();
   }
+
+  
   
   //returns the entry ball sensors value
   public int getEntrySensorValue(){
@@ -78,7 +84,23 @@ public class BallCounterSubsystem extends SubsystemBase {
   public int getIndexerSensorValue(){
     return (indexerSensor.get() ? 1 : 0);
   }
+  
+  // Counts balls inside robot
+  //This is assumes each sensore measure a single occupying spot for the ball which is a naive approach
+  public int ballsInRobot(){
+    int count = 0;
 
+    ballCountArray[0] = getEntrySensorValue();
+    ballCountArray[1] = getInitialConveyorSensorValue();
+    ballCountArray[2] = getEndConveyorSensorValue();
+    ballCountArray[3] = getIndexerSensorValue();
+
+    for(int num : ballCountArray){
+      count += num;
+    }
+
+    return count;
+  }
   //Gets the values of the four sensors and makes their values into a string
   public String getSensorValues(){
     final String sensorValues = "" + getEntrySensorValue() + getInitialConveyorSensorValue() + getEndConveyorSensorValue() + getIndexerSensorValue(); 
