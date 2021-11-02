@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallCounterSubsystem;
 import frc.robot.subsystems.BallManipulatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -18,13 +17,11 @@ public class BallOverrideCommand extends CommandBase {
    */
 
   public BallManipulatorSubsystem m_ballManipulatorSubsystem;
-  public BallCounterSubsystem m_ballCounterSubsystem;
   public IntakeSubsystem m_intakeSubsystem;
   
-  public BallOverrideCommand(BallManipulatorSubsystem ballManipulatorSubsystem, BallCounterSubsystem ballCounterSubsystem, IntakeSubsystem intakeSubsystem) {
+  public BallOverrideCommand(BallManipulatorSubsystem ballManipulatorSubsystem, IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_ballManipulatorSubsystem = ballManipulatorSubsystem;
-    m_ballCounterSubsystem = ballCounterSubsystem;
     m_intakeSubsystem = intakeSubsystem;
     addRequirements(ballManipulatorSubsystem);
   }

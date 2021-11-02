@@ -58,21 +58,21 @@ public class BallManipulatorSubsystem extends SubsystemBase {
     return m_indexerMotor.get();
   }
 
-  public void autoBallManipulatorMotors(int motors){
-    if(motors == 0 || motors == 1){
-      setBallIndexerMotor(0);
-      setConveyorMotor(0);
-    }else if(motors == 2){
-      setBallIndexerMotor(0);
-      setConveyorMotor(-1);
-    }else if(motors == 3){
-      setBallIndexerMotor(1);
-      setConveyorMotor(-1);
-    }
-    if(Robot.ballCount == 4){
-      setConveyorMotor(0);
-    }
-  }
+  // public void autoBallManipulatorMotors(int motors){
+  //   if(motors == 0 || motors == 1){
+  //     setBallIndexerMotor(0);
+  //     setConveyorMotor(0);
+  //   }else if(motors == 2){
+  //     setBallIndexerMotor(0);
+  //     setConveyorMotor(-1);
+  //   }else if(motors == 3){
+  //     setBallIndexerMotor(1);
+  //     setConveyorMotor(-1);
+  //   }
+  //   if(Robot.ballCount == 4){
+  //     setConveyorMotor(0);
+  //   }
+  // }
 
   //If there is a ball in the robot, try to get one ball into the indexer
   public void putBallInShooter(boolean ballInIndexer, double speed, int ballCount){

@@ -1,180 +1,199 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+// /*----------------------------------------------------------------------------*/
+// /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+// /* Open Source Software - may be modified and shared by FRC teams. The code   */
+// /* must be accompanied by the FIRST BSD license file in the root directory of */
+// /* the project.                                                               */
+// /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+// package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+// import edu.wpi.first.wpilibj.DigitalInput;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class BallCounterSubsystem extends SubsystemBase {
-  /**
-   * Creates a new BallCounterSubsystem.
-   */
-  public DigitalInput entrySensor = new DigitalInput(0); //sensor at singulator. May need to change channel
-  public DigitalInput initialConveyorSensor = new DigitalInput(1); //sensor right after singulator. May need to change channel
-  public DigitalInput endConveyorSensor = new DigitalInput(2);
-  public DigitalInput indexerSensor = new DigitalInput(3);
-  //sensor right before indexer. May need to change channel
-  private int ballCount; // initial ball sensor and indexer ball sensor contribute to ball count
-  private int ballsInConveyer;
-  // private boolean previousEntryValue;
-  // private boolean previousIndexerValue;
-  // private String startValues = "2222";
+// public class BallCounterSubsystem extends SubsystemBase {
+//   /**
+//    * Creates a new BallCounterSubsystem.
+//    */
+//   public DigitalInput entrySensor = new DigitalInput(0); //sensor at singulator. May need to change channel
+//   public DigitalInput initialConveyorSensor = new DigitalInput(1); //sensor right after singulator. May need to change channel
+//   public DigitalInput endConveyorSensor = new DigitalInput(2);
+//   public DigitalInput indexerSensor = new DigitalInput(3);
+//   //sensor right before indexer. May need to change channel
+//   private int ballCount=0; // initial ball sensor and indexer ball sensor contribute to ball count
+//   private int ballsInConveyer;
+//   // private boolean previousEntryValue;
+//   // private boolean previousIndexerValue;
+//   // private String startValues = "2222";
 
-  public int[] ballCountArray = new int[4];
+//   public int[] ballCountArray = new int[4];
 
+//   boolean toggleEntryState = true;
 
-  public BallCounterSubsystem() {
+//   public BallCounterSubsystem() {
     
 
-    //ballCount = 0;
-  }
+//   }
 
-  //Gets a value for the ball sensors every 50 ms
-  @Override
-  public void periodic() {
-    //SmartDashboard.putNumber("ball count",ballCount);
+//   //Gets a value for the ball sensors every 50 ms
+//   @Override
+//   public void periodic() {
 
-    // This method will be called once per scheduler run
-      // if (previousEntryValue == true && entrySensor.get() == false) {
-      //   ballCount++;
-      // }
-      // if (previousIndexerValue && !indexerSensor.get()) {
-      //   ballCount--;
-      // }
-      // previousEntryValue = entrySensor.get();
-      // previousIndexerValue = indexerSensor.get();
-      // if(startValues.charAt(1) == '1' && getSensorValues().charAt(1) == '0'){
-      //   ballCount++;
-      // }
-      // if(startValues.charAt(3) == '0' && getSensorValues().charAt(3) == '1'){
-      //   ballCount--;
-      // }
+    
 
-      // System.out.println(startValues.charAt(1));
-      // System.out.println(m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(1));
-      // System.out.println(m_robotContainer.m_ballManipulatorSubsystem.getConveyorMotor());
-      //System.out.println(ballCount);
-      //startValues = getSensorValues();
-  }
+//     // if(!initialConveyorSensor.get()){
+//     //   toggleEntryState = false;
+//     //   if(initialConveyorSensor.get()){
+//     //     toggleEntryState = true;
+//     //     ballCount++;
+//     //   }
+//     // }
+
+//     }
+//     //SmartDashboard.putNumber("ball count",ballCount);
+
+//     // This method will be called once per scheduler run
+//       // if (previousEntryValue == true && entrySensor.get() == false) {
+//       //   ballCount++;
+//       // }
+//       // if (previousIndexerValue && !indexerSensor.get()) {
+//       //   ballCount--;
+//       // }
+//       // previousEntryValue = entrySensor.get();
+//       // previousIndexerValue = indexerSensor.get();
+//       // if(startValues.charAt(1) == '1' && getSensorValues().charAt(1) == '0'){
+//       //   ballCount++;
+//       // }
+//       // if(startValues.charAt(3) == '0' && getSensorValues().charAt(3) == '1'){
+//       //   ballCount--;
+//       // }
+
+//       // System.out.println(startValues.charAt(1));
+//       // System.out.println(m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(1));
+//       // System.out.println(m_robotContainer.m_ballManipulatorSubsystem.getConveyorMotor());
+//       //System.out.println(ballCount);
+//       //startValues = getSensorValues();
+    
+  
 
   
   
-  //returns the entry ball sensors value
-  public int getEntrySensorValue(){
-    return (entrySensor.get() ? 1 : 0);
-  }
+//   //returns the entry ball sensors value
+//   public int getEntrySensorValue(){
+//     return (entrySensor.get() ? 1 : 0);
+//   }
 
-  //returns the initial conveyor sensors value 
-  public int getInitialConveyorSensorValue(){
-    return (initialConveyorSensor.get() ? 1 : 0) ;
-  }
+//   public double getBallCount(){
+//     ballCount += 0.0;
+//     return ballCount;
+//   }
 
-  //returns the end conveyor sensors value
-  public int getEndConveyorSensorValue(){
-    return (endConveyorSensor.get() ? 1 : 0);
-  }
+//   //returns the initial conveyor sensors value 
+//   public int getInitialConveyorSensorValue(){
+//     return (initialConveyorSensor.get() ? 1 : 0) ;
+//   }
 
-  //returns the end conveyor sensors value
-  public int getIndexerSensorValue(){
-    return (indexerSensor.get() ? 1 : 0);
-  }
+//   //returns the end conveyor sensors value
+//   public int getEndConveyorSensorValue(){
+//     return (endConveyorSensor.get() ? 1 : 0);
+//   }
+
+//   //returns the end conveyor sensors value
+//   public int getIndexerSensorValue(){
+//     return (indexerSensor.get() ? 1 : 0);
+//   }
   
-  // Counts balls inside robot
-  //This is assumes each sensore measure a single occupying spot for the ball which is a naive approach
-  public int ballsInRobot(){
-    int count = 0;
+//   // Counts balls inside robot
+//   //This is assumes each sensore measure a single occupying spot for the ball which is a naive approach
+//   public int ballsInRobot(){
+//     int count = 0;
 
-    ballCountArray[0] = getEntrySensorValue();
-    ballCountArray[1] = getInitialConveyorSensorValue();
-    ballCountArray[2] = getEndConveyorSensorValue();
-    ballCountArray[3] = getIndexerSensorValue();
+//     ballCountArray[0] = getEntrySensorValue();
+//     ballCountArray[1] = getInitialConveyorSensorValue();
+//     ballCountArray[2] = getEndConveyorSensorValue();
+//     ballCountArray[3] = getIndexerSensorValue();
 
-    for(int num : ballCountArray){
-      count += num;
-    }
+//     for(int num : ballCountArray){
+//       count += num;
+//     }
 
-    return count;
-  }
-  //Gets the values of the four sensors and makes their values into a string
-  public String getSensorValues(){
-    final String sensorValues = "" + getEntrySensorValue() + getInitialConveyorSensorValue() + getEndConveyorSensorValue() + getIndexerSensorValue(); 
-    return sensorValues;
-  }
+//     return count;
+//   }
+//   //Gets the values of the four sensors and makes their values into a string
+//   public String getSensorValues(){
+//     final String sensorValues = "" + getEntrySensorValue() + getInitialConveyorSensorValue() + getEndConveyorSensorValue() + getIndexerSensorValue(); 
+//     return sensorValues;
+//   }
 
-  //Determines how many balls are inside the robot by comparing the current sensor value to the previous sensor value with a 50 ms delay
-  // public int getBallsInRobot(){
-  //   if(getSensorValues() == "1111"){
-  //     ballCount = 5;
-  //   }else if(getSensorValues() == "0000"){
-  //     ballCount = 0;
-  //   }
-  //   return ballCount;
-  // }
+//   //Determines how many balls are inside the robot by comparing the current sensor value to the previous sensor value with a 50 ms delay
+//   // public int getBallsInRobot(){
+//   //   if(getSensorValues() == "1111"){
+//   //     ballCount = 5;
+//   //   }else if(getSensorValues() == "0000"){
+//   //     ballCount = 0;
+//   //   }
+//   //   return ballCount;
+//   // }
 
-  //0 = all off, 1 = intake on, 2 = conveyor and intake on, 3 = all on
-  public int getMotorsBasedOnBalls(String sensorValues){
+//   //0 = all off, 1 = intake on, 2 = conveyor and intake on, 3 = all on
+//   public int getMotorsBasedOnBalls(String sensorValues){
 
-    if(sensorValues.equals("0000")){
-      return 0;
-    }else if(sensorValues.equals("1110") || sensorValues.equals("1100") || sensorValues.equals("1010") || sensorValues.equals("1000") || sensorValues.equals("0110") || sensorValues.equals("0100") || sensorValues.equals("0110")|| sensorValues.equals("0010")){
-      return 2;
-    }else if(sensorValues.equals("1111") || sensorValues.equals("1101") || sensorValues.equals("1011") || sensorValues.equals("1001")|| sensorValues.equals("0111") || sensorValues.equals("0101") || sensorValues.equals("0011")|| sensorValues.equals("0001")){
-      return 3;
-    }
-    return 3;
+//     if(sensorValues.equals("0000")){
+//       return 0;
+//     }else if(sensorValues.equals("1110") || sensorValues.equals("1100") || sensorValues.equals("1010") || sensorValues.equals("1000") || sensorValues.equals("0110") || sensorValues.equals("0100") || sensorValues.equals("0110")|| sensorValues.equals("0010")){
+//       return 2;
+//     }else if(sensorValues.equals("1111") || sensorValues.equals("1101") || sensorValues.equals("1011") || sensorValues.equals("1001")|| sensorValues.equals("0111") || sensorValues.equals("0101") || sensorValues.equals("0011")|| sensorValues.equals("0001")){
+//       return 3;
+//     }
+//     return 3;
 
-    //NOT FOR COMP 2021
-    // if(sensorValues.equals("0000")){
-    //   return 0;
-    // }else if(sensorValues.equals("1110") || sensorValues.equals("1100") || sensorValues.equals("1010") || sensorValues.equals("1000") || sensorValues.equals("0110") || sensorValues.equals("0100") || sensorValues.equals("0110")|| sensorValues.equals("0010")){
-    //   return 2;
-    // }else if(sensorValues.equals("1111") || sensorValues.equals("1101") || sensorValues.equals("1011") || sensorValues.equals("1001")|| sensorValues.equals("0111") || sensorValues.equals("0101") || sensorValues.equals("0011") || sensorValues.equals("0001")){
-    //   return 3;
-    // }
-    // return 3;
-  }
+//     //NOT FOR COMP 2021
+//     // if(sensorValues.equals("0000")){
+//     //   return 0;
+//     // }else if(sensorValues.equals("1110") || sensorValues.equals("1100") || sensorValues.equals("1010") || sensorValues.equals("1000") || sensorValues.equals("0110") || sensorValues.equals("0100") || sensorValues.equals("0110")|| sensorValues.equals("0010")){
+//     //   return 2;
+//     // }else if(sensorValues.equals("1111") || sensorValues.equals("1101") || sensorValues.equals("1011") || sensorValues.equals("1001")|| sensorValues.equals("0111") || sensorValues.equals("0101") || sensorValues.equals("0011") || sensorValues.equals("0001")){
+//     //   return 3;
+//     // }
+//     // return 3;
+//   }
 
-  //Determines if there is a ball in the indexer 
-  public boolean isBallInIndexer(){
-    return indexerSensor.get();
-  }
+//   //Determines if there is a ball in the indexer 
+//   public boolean isBallInIndexer(){
+//     return indexerSensor.get();
+//   }
 
-  public boolean isBallInSingulator(){
-    return entrySensor.get();
-  }
+//   public boolean isBallInSingulator(){
+//     return entrySensor.get();
+//   }
 
-  //Determines how many balls are in the conveyer belt 
-  public int ballsInConveyer(){
-    ballsInConveyer = ballCount;
-    if(isBallInIndexer()){
-      ballsInConveyer--;
-    }
-    return ballsInConveyer;
-  }
+//   //Determines how many balls are in the conveyer belt 
+//   public int ballsInConveyer(){
+//     ballsInConveyer = ballCount;
+//     if(isBallInIndexer()){
+//       ballsInConveyer--;
+//     }
+//     return ballsInConveyer;
+//   }
 
-  //Resets the ball count to zero
-  public void resetBallCount(){
-    ballCount = 0;
-  }
+//   //Resets the ball count to zero
+//   public void resetBallCount(){
+//     ballCount = 0;
+//   }
 
-  public int ballCounter(char initialEnterValue, char initalExitValue){
-    int count = 0;
-    char currentEnterValue = getSensorValues().charAt(1);
-    char currentExitValue = getSensorValues().charAt(3);
-    if(currentEnterValue == '1' && initialEnterValue == '0'){
-      count++;
-    }
-    if(currentExitValue == '0' && initalExitValue == '1'){
-      count--;
-    }
-    return count;
-  }
-}
+//   public int ballCounter(){
+//     int count = 0;
+//     char currentEnterValue = getSensorValues().charAt(1);
+//     char currentExitValue = getSensorValues().charAt(3);
+//     // if(currentEnterValue == '1' && initialEnterValue == '0'){
+//     //   count++;
+//     // }
+//     // if(currentExitValue == '0' && initalExitValue == '1'){
+//     //   count--;
+//     // }
+//     return count;
+//   }
+
+// }
 
 

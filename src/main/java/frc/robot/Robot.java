@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,13 +22,14 @@ import frc.robot.commands.BUTTONShootBallCommand;
 import frc.robot.commands.BallManipulateCommand;
 import frc.robot.commands.IntakeLiftCommand;
 import frc.robot.commands.TurretSetAngleCommand;
-import frc.robot.subsystems.BallCounterSubsystem;
 import frc.robot.subsystems.BallManipulatorSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
+
+import frc.robot.RobotContainer;
 
 import com.analog.adis16470.frc.ADIS16470_IMU; //Gyroscope
 
@@ -47,7 +49,6 @@ public class Robot extends TimedRobot {
   private DrivetrainSubsystem drivetrainSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private BallManipulatorSubsystem ballManipulatorSubsystem;
-  private BallCounterSubsystem ballCounterSubsystem;
   private IntakeSubsystem intakeSubsystem;
   private LimelightSubsystem limelightSubsystem;
   private TurretSubsystem turretSubsystem;
@@ -73,11 +74,30 @@ public class Robot extends TimedRobot {
 
   public static final ADIS16470_IMU m_imu = new ADIS16470_IMU();
 
+  public DigitalInput entrySensor = new DigitalInput(0); //sensor at singulator. May need to change channel
+  public DigitalInput initialConveyorSensor = new DigitalInput(1); //sensor right after singulator. May need to change channel
+  public DigitalInput endConveyorSensor = new DigitalInput(2);
+  public DigitalInput indexerSensor = new DigitalInput(3);
+
   public static int ourFieldPosition = 0;
-  public static int ballCount;
+
+  public static int ballCount = 0;
+  public static boolean toggleEntryState = true;
+  public static int ballsInConveyer; 
+
+  public static boolean previousEntryValue;
+  public static boolean previousIndexerValue;
+
+  public static boolean entrySensorValue;
+  public static boolean endConveyorSensorValue;
+  public static boolean indexerSensorValue;
+  public static boolean startConveyorSensorValue;
+
+ // public static int ballCount;
 
   String startValues = "2222";
   SendableChooser<String> fieldPosition = new SendableChooser<>();
+  SendableChooser<Integer> startingBallCount = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -87,6 +107,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
+
     m_robotContainer = new RobotContainer();
     m_robotContainer.m_gyroSubsystem.resetAngle();
 
@@ -95,12 +117,33 @@ public class Robot extends TimedRobot {
 		fieldPosition.addOption("Power Port", new String("Power Port"));
     fieldPosition.addOption("Loading Bay", new String("Loading Bay"));
     SmartDashboard.putData("fieldPosition", fieldPosition);
+    
+    startingBallCount.setDefaultOption("0", 0);
+    startingBallCount.addOption("1", 1);
+    startingBallCount.addOption("2", 2);
+    startingBallCount.addOption("3", 3);
+
+    SmartDashboard.putData("startingBallCount", startingBallCount);
+    
+    
+
+
+
+
+   
+
+
 
     m_autoChooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_autoChooser.addOption("My Auto", kCustomAuto);
    // m_yawChooser.setDefaultOption("Z-Axis", kYawDefault);
     //m_yawChooser.addOption("X-Axis", kYawXAxis);
     //m_yawChooser.addOption("Y-Axis", kYawYAxis);
+    
+
+
+    previousIndexerValue = indexerSensor.get();
+    
 
     
     
@@ -120,12 +163,14 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+
     CommandScheduler.getInstance().run();
-    SmartDashboard.putBoolean("end conveyor values", m_robotContainer.m_ballCounterSubsystem.endConveyorSensor.get());
-    SmartDashboard.putBoolean("entry values", m_robotContainer.m_ballCounterSubsystem.entrySensor.get());
-    SmartDashboard.putBoolean("indexer values", m_robotContainer.m_ballCounterSubsystem.indexerSensor.get());
-    SmartDashboard.putBoolean("initial conveyor values", m_robotContainer.m_ballCounterSubsystem.initialConveyorSensor.get());
-    SmartDashboard.putString("sensor values", m_robotContainer.m_ballCounterSubsystem.getSensorValues());
+    // SmartDashboard.putNumber("NumberBalls", m_robotContainer.m_ballCounterSubsystem.getBallCount());
+    // SmartDashboard.putBoolean("end conveyor values", m_robotContainer.m_ballCounterSubsystem.endConveyorSensor.get());
+    // SmartDashboard.putBoolean("entry values", m_robotContainer.m_ballCounterSubsystem.entrySensor.get());
+    // SmartDashboard.putBoolean("indexer values", m_robotContainer.m_ballCounterSubsystem.indexerSensor.get());
+    // SmartDashboard.putBoolean("initial conveyor values", m_robotContainer.m_ballCounterSubsystem.initialConveyorSensor.get());
+    //SmartDashboard.putString("sensor values", m_robotContainer.m_ballCounterSubsystem.getSensorValues());
     SmartDashboard.putNumber("ball count", ballCount);
     SmartDashboard.putNumber("distance from target", m_robotContainer.m_limelightSubsystem.calculateDistance());
     SmartDashboard.putBoolean("left limit switch", m_robotContainer.m_turretSubsystem.getLeftLimit());
@@ -138,7 +183,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber(("DecRate"), m_decRate); //
    
 
-    if(startValues.charAt(1) == '1' && m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(1) == '0' && m_robotContainer.m_ballManipulatorSubsystem.getConveyorMotor() < 0){
+    /*if(startValues.charAt(1) == '1' && m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(1) == '0' && m_robotContainer.m_ballManipulatorSubsystem.getConveyorMotor() < 0){
       ballCount++;
     }
     if(startValues.charAt(3) == '0' && m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(3) == '1' && m_robotContainer.m_ballManipulatorSubsystem.getBallIndexerMotor() > 0){
@@ -149,11 +194,57 @@ public class Robot extends TimedRobot {
     }
     if(startValues.charAt(3) == '0' && m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(3) == '1' && m_robotContainer.m_ballManipulatorSubsystem.getBallIndexerMotor() < 0){
       ballCount++;
-    }
+    }*/
     // System.out.println(startValues.charAt(1));
    
-    startValues = m_robotContainer.m_ballCounterSubsystem.getSensorValues();
+    // startValues = m_robotContainer.m_ballCounterSubsystem.getSensorValues();
 
+    entrySensorValue = entrySensor.get();
+    startConveyorSensorValue = initialConveyorSensor.get(); //initial conveyor sensor
+    endConveyorSensorValue = endConveyorSensor.get();
+    indexerSensorValue = indexerSensor.get();
+    SmartDashboard.putBoolean("Entry sensor", entrySensorValue);
+    SmartDashboard.putBoolean("Initial conveyor sensor", startConveyorSensorValue);
+    SmartDashboard.putBoolean("End conveyor sensor", endConveyorSensorValue);
+    SmartDashboard.putBoolean("Indexer sensor value", indexerSensorValue);
+
+    ballCount = startingBallCount.getSelected();
+
+
+    //System.out.println(initialConveyorSensorValue);
+
+    // if(!initialConveyorSensorValue){
+    //   toggleEntryState = false;
+    //   if(initialConveyorSensorValue){
+    //     toggleEntryState = true;
+    //     ballCount++;
+
+   
+      // true = no ball 
+    if (previousEntryValue == true && initialConveyorSensor.get() == false) {
+      previousEntryValue = false;
+      ballCount++;
+    }
+    if(initialConveyorSensor.get() == true && previousEntryValue == false){
+      previousEntryValue = true; 
+    }
+    if (previousIndexerValue == false  && indexerSensor.get() == true) {
+       previousIndexerValue = true; 
+       ballCount--;
+    }
+    if(indexerSensor.get() == false && previousIndexerValue == true ){
+      previousIndexerValue = false;
+    }
+
+    
+
+   // Start values = 2222 //
+      
+    //System.out.println(ballCount);
+
+
+
+/* Commands to fix later: ballManipulate, intake, ballOverride, all autonomous commands and command groups  */    
 
 
   }
@@ -212,7 +303,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    ballCount = m_robotContainer.m_ballCounterChooser.getSelected();
+    // ballCount = m_robotContainer.m_ballCounterChooser.getSelected();
 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -235,7 +326,7 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    ballCount = m_robotContainer.m_ballCounterChooser.getSelected();
+    // ballCount = m_robotContainer.m_ballCounterChooser.getSelected();
   }
 
   /**

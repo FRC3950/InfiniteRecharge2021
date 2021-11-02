@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -25,21 +24,21 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
 
-    m_intakeMotor = new WPI_TalonFX(4);
+    m_intakeMotor = new WPI_TalonFX(16);
     m_singulatorMotor = new WPI_TalonSRX(6);
 
 
     m_singulatorMotor.setInverted(true);
   }
 
-  @Override
-  public void periodic() {
+  //@Override
+ //public void periodic() {
     // This method will be called once per scheduler run
-  }
+  //}
 
   //Sets the motor for the intake rollers to a certain speed
   public void setIntakeMotor(final double speed) {
-    m_intakeMotor.set(speed);
+    m_intakeMotor.set(-speed);
     // System.out.println("Motor");
   }
 

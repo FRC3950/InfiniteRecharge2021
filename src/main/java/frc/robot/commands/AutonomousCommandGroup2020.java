@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.BallCounterSubsystem;
 import frc.robot.subsystems.BallManipulatorSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -22,7 +21,7 @@ import frc.robot.subsystems.TurretSubsystem;
 public class AutonomousCommandGroup2020 extends SequentialCommandGroup {
   /** Creates a new AutonomousCommandGroup2020. */
   public AutonomousCommandGroup2020(DrivetrainSubsystem drivetrainSubsystem, ShooterSubsystem shooterSubsystem, BallManipulatorSubsystem ballManipulatorSubsystem, 
-  BallCounterSubsystem ballCounterSubsystem, IntakeSubsystem intakeSubsystem, LimelightSubsystem limelightSubsystem, TurretSubsystem turretSubsystem) {
+  IntakeSubsystem intakeSubsystem, LimelightSubsystem limelightSubsystem, TurretSubsystem turretSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -32,7 +31,7 @@ public class AutonomousCommandGroup2020 extends SequentialCommandGroup {
           new BUTTONShootBallCommand(ballManipulatorSubsystem, shooterSubsystem, intakeSubsystem, limelightSubsystem)
         ),
         new IntakeLiftCommand(intakeSubsystem),
-        new BallManipulateCommandAuto(intakeSubsystem, ballManipulatorSubsystem, ballCounterSubsystem, drivetrainSubsystem),
+        //new BallManipulateCommandAuto(intakeSubsystem, ballManipulatorSubsystem, ballCounterSubsystem, drivetrainSubsystem),
         new AutoDriveBackwardCommand(drivetrainSubsystem),
         new ParallelDeadlineGroup(
           new ShootBallCommand(ballManipulatorSubsystem, shooterSubsystem, intakeSubsystem, limelightSubsystem),

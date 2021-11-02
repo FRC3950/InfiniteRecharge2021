@@ -10,7 +10,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.subsystems.BallCounterSubsystem;
 import frc.robot.subsystems.BallManipulatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -20,17 +19,17 @@ public class BallManipulateCommand extends CommandBase {
    */
   public IntakeSubsystem m_intakeSubsystem;
   public BallManipulatorSubsystem m_ballManipulatorSubsystem;
-  public BallCounterSubsystem m_ballCounterSubsystem;
+  //public BallCounterSubsystem m_ballCounterSubsystem;
   int ballCount;
   String sensors;
   int motors;
   String startValues;
 
-  public BallManipulateCommand(IntakeSubsystem intakeSubsystem, BallManipulatorSubsystem ballManipulatorSubsystem, BallCounterSubsystem ballCounterSubsystem) {
+  public BallManipulateCommand(IntakeSubsystem intakeSubsystem, BallManipulatorSubsystem ballManipulatorSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intakeSubsystem = intakeSubsystem;
     m_ballManipulatorSubsystem = ballManipulatorSubsystem;
-    m_ballCounterSubsystem = ballCounterSubsystem;
+    //m_ballCounterSubsystem = ballCounterSubsystem;
     // addRequirements(ballManipulatorSubsystem);
     SmartDashboard.putString("test" ,"");
     SmartDashboard.putString("sensor string", "");
@@ -72,23 +71,23 @@ public class BallManipulateCommand extends CommandBase {
   //NOT FOR CHALLENGES 2021
 
 
-  System.out.println("execute");
-    ballCount = Robot.ballCount;
-    sensors = m_ballCounterSubsystem.getSensorValues();
-    motors = m_ballCounterSubsystem.getMotorsBasedOnBalls(sensors);
-    //SmartDashboard.putString("test" ,m_ballManipulatorSubsystem.manipulate(ballCount, sensors));
-    SmartDashboard.putString("motors", "" + motors);
+  //System.out.println("execute");
+    // ballCount = Robot.ballCount;
+  //   sensors = m_ballCounterSubsystem.getSensorValues();
+  //   motors = m_ballCounterSubsystem.getMotorsBasedOnBalls(sensors);
+  //   //SmartDashboard.putString("test" ,m_ballManipulatorSubsystem.manipulate(ballCount, sensors));
+  //   SmartDashboard.putString("motors", "" + motors);
     
-    if(ballCount == 2 && sensors.charAt(0)== '0'){
-      m_intakeSubsystem.setIntakeMotor(0);
-      m_intakeSubsystem.setSingulatorMotor(0);
-    }else{
-      m_intakeSubsystem.setIntakeMotor(.9);
-      m_intakeSubsystem.setSingulatorMotor(1);
-    }
-    m_ballManipulatorSubsystem.autoBallManipulatorMotors(motors);
+  //   if(ballCount == 2 && sensors.charAt(0)== '0'){
+  //     m_intakeSubsystem.setIntakeMotor(0);
+  //     m_intakeSubsystem.setSingulatorMotor(0);
+  //   }else{
+  //     m_intakeSubsystem.setIntakeMotor(.9);
+  //     m_intakeSubsystem.setSingulatorMotor(1);
+  //   }
+  //   // m_ballManipulatorSubsystem.autoBallManipulatorMotors(motors);
+  // }
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

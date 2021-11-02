@@ -9,25 +9,29 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallCounterSubsystem;
+//import frc.robot.subsystems.BallCounterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Robot;
 import frc.robot.subsystems.BallManipulatorSubsystem;
 
 public class IntakeBallCommand extends CommandBase {
-
+  /**
+   * Creates a new IntakeBallCommand.
+   */
 
    private final IntakeSubsystem m_intakeSubsystem;
-   private final BallCounterSubsystem m_ballCounterSubsystem;
+   //private final BallCounterSubsystem m_ballCounterSubsystem;
    private final BallManipulatorSubsystem m_ballManipulatorSubsystem;
    int ballsInRobot;
+   private boolean finished;
    
 
-  public IntakeBallCommand(IntakeSubsystem intakeSubsystem, BallCounterSubsystem ballCounterSubsystem, BallManipulatorSubsystem ballManipulatorSubsystem){
+  public IntakeBallCommand(IntakeSubsystem intakeSubsystem, BallManipulatorSubsystem ballManipulatorSubsystem){
     m_intakeSubsystem = intakeSubsystem;
-    m_ballCounterSubsystem = ballCounterSubsystem;
+    //m_ballCounterSubsystem = ballCounterSubsystem;
     m_ballManipulatorSubsystem = ballManipulatorSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem,ballCounterSubsystem,ballManipulatorSubsystem);
+    addRequirements(intakeSubsystem);
     SmartDashboard.putString("intake" ,"");
 
   }
@@ -41,70 +45,46 @@ public class IntakeBallCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // int ballCount = m_ballCounterSubsystem.ballCounter();
+    // int ballCount = m_ballCounterSubsystem.;
     //int ballInIntake = m_ballCounterSubsystem.getEntrySensorValue();
     //boolean intakePosition = m_intakeSubsystem.intakePosition();
     
-   m_ballCounterSubsystem.getSensorValues();
 
-   
-   if(m_ballCounterSubsystem.ballsInRobot() < 4 && m_ballCounterSubsystem.isBallInIndexer() == true){
-    m_intakeSubsystem.setIntakeMotor(1.0);
-    m_intakeSubsystem.setSingulatorMotor(1.0);
-    m_ballManipulatorSubsystem.setBallIndexerMotor(1.0);
-    m_ballManipulatorSubsystem.setConveyorMotor(-1.0);
-  }
+  if(Robot.ballCount < 4 && Robot.indexerSensorValue == true){
+  m_intakeSubsystem.setIntakeMotor(1.0);
+  m_intakeSubsystem.setSingulatorMotor(1.0);
+      m_ballManipulatorSubsystem.setBallIndexerMotor(1.0);
+      m_ballManipulatorSubsystem.setConveyorMotor(-1.0);
 
-  else if(m_ballCounterSubsystem.ballsInRobot() == 4 && m_ballCounterSubsystem.isBallInIndexer() == false){
-    m_intakeSubsystem.setIntakeMotor(1.0);
-    m_intakeSubsystem.setSingulatorMotor(1.0);
-    m_ballManipulatorSubsystem.setBallIndexerMotor(0);
-    m_ballManipulatorSubsystem.setConveyorMotor(-1.0);
-  } 
-  else if(m_ballCounterSubsystem.ballsInRobot() == 4 && m_ballCounterSubsystem.isBallInSingulator() == true){
-    m_intakeSubsystem.setIntakeMotor(1.0);
-    m_intakeSubsystem.setSingulatorMotor(1.0);
-  } 
+     System.out.println(Robot.ballCount);
+    }
 
-  else if(m_ballCounterSubsystem.ballsInRobot() == 4 && m_ballCounterSubsystem.isBallInSingulator() == false){
-    m_intakeSubsystem.setIntakeMotor(0);
-    m_intakeSubsystem.setSingulatorMotor(0);
-    m_ballManipulatorSubsystem.setBallIndexerMotor(0);
-    m_ballManipulatorSubsystem.setConveyorMotor(0);
-  }
+    if(Robot.ballCount == 4 && Robot.indexerSensorValue == false){
+      m_intakeSubsystem.setIntakeMotor(1.0);
+      m_intakeSubsystem.setSingulatorMotor(1.0);
+      m_ballManipulatorSubsystem.setBallIndexerMotor(0);
+      m_ballManipulatorSubsystem.setConveyorMotor(0);
+    } 
+    else if((Robot.ballCount == 4 && Robot.entrySensorValue == true)){
+      m_intakeSubsystem.setIntakeMotor(1.0);
+      m_intakeSubsystem.setSingulatorMotor(1.0);
+    } 
 
-    // if(m_ballCounterSubsystem.ballsInConveyer() < 4 && m_ballCounterSubsystem.isBallInIndexer() == true){
-    //   m_intakeSubsystem.setIntakeMotor(1.0);
-    //   m_intakeSubsystem.setSingulatorMotor(1.0);
-    //   m_ballManipulatorSubsystem.setBallIndexerMotor(1.0);
-    //   m_ballManipulatorSubsystem.setConveyorMotor(-1.0);
-    // }
-
-    // else if(m_ballCounterSubsystem.ballsInConveyer() == 4 && m_ballCounterSubsystem.isBallInIndexer() == false){
-    //   m_intakeSubsystem.setIntakeMotor(1.0);
-    //   m_intakeSubsystem.setSingulatorMotor(1.0);
-    //   m_ballManipulatorSubsystem.setBallIndexerMotor(0);
-    //   m_ballManipulatorSubsystem.setConveyorMotor(-1.0);
-    // } 
-    // else if(m_ballCounterSubsystem.ballsInConveyer() == 4 && m_ballCounterSubsystem.isBallInSingulator() == true){
-    //   m_intakeSubsystem.setIntakeMotor(1.0);
-    //   m_intakeSubsystem.setSingulatorMotor(1.0);
-    // } 
-
-    // else if(m_ballCounterSubsystem.ballsInConveyer() == 4 && m_ballCounterSubsystem.isBallInSingulator() == false){
-    //   m_intakeSubsystem.setIntakeMotor(0);
-    //   m_intakeSubsystem.setSingulatorMotor(0);
-    //   m_ballManipulatorSubsystem.setBallIndexerMotor(0);
-    //   m_ballManipulatorSubsystem.setConveyorMotor(0);
-    // }
+    else if((Robot.ballCount == 4 && Robot.entrySensorValue == false)){
+      m_intakeSubsystem.setIntakeMotor(0);
+      m_intakeSubsystem.setSingulatorMotor(0);
+      m_ballManipulatorSubsystem.setBallIndexerMotor(0);
+      m_ballManipulatorSubsystem.setConveyorMotor(0);
+    }
 
 
 
       
-    // insert a way to turn on the singulator, conveyor, and indexer until indexer detects a ball, then only run the singulator and conveyor 
-    //finished = m_intakeSubsystem.intakeBalls(ballCount, ballInIntake, intakePosition);
-    //m_intakeSubsystem.autoBallIntakeMotors(m_ballCounterSubsystem.getMotorsBasedOnBalls(), intakePosition);
+   // insert a way to turn on the singulator, conveyor, and indexer until indexer detects a ball, then only run the singulator and conveyor 
+   // finished = m_intakeSubsystem.intakeBalls(ballCount, ballInIntake, intakePosition);
+  //m_intakeSubsystem.autoBallIntakeMotors(m_ballCounterSubsystem.getMotorsBasedOnBalls(), intakePosition);
     SmartDashboard.putString("intake" ,"on");
+    
 
   }
 
@@ -115,6 +95,11 @@ public class IntakeBallCommand extends CommandBase {
 
     //m_intakeSubsystem.setIntakePosition(false);
     SmartDashboard.putString("intake" ," off");
+    m_intakeSubsystem.setIntakeMotor(0);
+    m_intakeSubsystem.setSingulatorMotor(0);
+    m_ballManipulatorSubsystem.setBallIndexerMotor(0);
+    m_ballManipulatorSubsystem.setConveyorMotor(0);
+
 
   }
 
@@ -123,6 +108,10 @@ public class IntakeBallCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return true;
+    // m_intakeSubsystem.setIntakeMotor(0);
+    // m_intakeSubsystem.setSingulatorMotor(0);
+    // m_ballManipulatorSubsystem.setBallIndexerMotor(0);
+    // m_ballManipulatorSubsystem.setConveyorMotor(0);
+    return false;
   }
 }

@@ -57,9 +57,9 @@ public class BUTTONShootBallCommand extends CommandBase {
       m_intakeSubsystem.setIntakeMotor(1); 
     }
     //System.out.println("SET" + setSpeed + "   ACTUAL" + m_shooterSubsystem.getVelocityFromEncoder());
-    if(Robot.ballCount == 0){
-      finished = true;
-    }
+    // if(m_ballCounterSubsystem.getBallCount() == 0){
+    //   finished = true;
+    // }
   }
 
   // Called once the command ends or is interrupted.
