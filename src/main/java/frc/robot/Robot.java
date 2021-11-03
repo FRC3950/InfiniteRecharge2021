@@ -171,7 +171,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putBoolean("indexer values", m_robotContainer.m_ballCounterSubsystem.indexerSensor.get());
     // SmartDashboard.putBoolean("initial conveyor values", m_robotContainer.m_ballCounterSubsystem.initialConveyorSensor.get());
     //SmartDashboard.putString("sensor values", m_robotContainer.m_ballCounterSubsystem.getSensorValues());
-    SmartDashboard.putNumber("ball count", ballCount);
+    
     SmartDashboard.putNumber("distance from target", m_robotContainer.m_limelightSubsystem.calculateDistance());
     SmartDashboard.putBoolean("left limit switch", m_robotContainer.m_turretSubsystem.getLeftLimit());
     SmartDashboard.putBoolean("right limit switch", m_robotContainer.m_turretSubsystem.getRightLimit());
@@ -181,6 +181,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("YawAngle", m_imu.getAngle()); //Angle of yaw 
     SmartDashboard.putNumber("GyroInstantZ", m_imu.getGyroInstantZ()); //Rate of change 
     SmartDashboard.putNumber(("DecRate"), m_decRate); //
+    SmartDashboard.putNumber("ball count", ballCount);
    
 
     /*if(startValues.charAt(1) == '1' && m_robotContainer.m_ballCounterSubsystem.getSensorValues().charAt(1) == '0' && m_robotContainer.m_ballManipulatorSubsystem.getConveyorMotor() < 0){
@@ -209,8 +210,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Indexer sensor value", indexerSensorValue);
 
     ballCount = startingBallCount.getSelected();
-
-
     //System.out.println(initialConveyorSensorValue);
 
     // if(!initialConveyorSensorValue){
@@ -235,6 +234,9 @@ public class Robot extends TimedRobot {
     if(indexerSensor.get() == false && previousIndexerValue == true ){
       previousIndexerValue = false;
     }
+    
+
+    
 
     
 
