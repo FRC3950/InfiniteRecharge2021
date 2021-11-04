@@ -45,8 +45,8 @@ public class IntakeBallCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(Robot.ballCount);
-    System.out.println("Ball count");
+    // System.out.println(Robot.ballCount);
+    // System.out.println("Ball count");
   
     // int ballCount = m_ballCounterSubsystem.;
     //int ballInIntake = m_ballCounterSubsystem.getEntrySensorValue();
@@ -60,21 +60,21 @@ public class IntakeBallCommand extends CommandBase {
       System.out.println(Robot.ballCount);
     }
 
-    if(Robot.ballCount == 4 && Robot.indexerSensorValue == false){ 
+   else if(Robot.ballCount < 4 && Robot.indexerSensorValue == false){ 
       m_intakeSubsystem.setIntakeMotor(1.0);
       m_intakeSubsystem.setSingulatorMotor(1.0);
       m_ballManipulatorSubsystem.setBallIndexerMotor(0);
-      m_ballManipulatorSubsystem.setConveyorMotor(0);
+      m_ballManipulatorSubsystem.setConveyorMotor(-1.0);
       System.out.println(Robot.ballCount);
       
     } 
-    else if((Robot.ballCount == 4 && Robot.entrySensorValue == true)){
+    else if((Robot.ballCount >= 4 && Robot.entrySensorValue == true)){
       m_intakeSubsystem.setIntakeMotor(1.0);
       m_intakeSubsystem.setSingulatorMotor(1.0);
 
     } 
 
-    else if((Robot.ballCount == 4 && Robot.entrySensorValue == false)){
+    else if((Robot.ballCount >= 4 && Robot.entrySensorValue == false)){
       m_intakeSubsystem.setIntakeMotor(0);
       m_intakeSubsystem.setSingulatorMotor(0);
       m_ballManipulatorSubsystem.setBallIndexerMotor(0);

@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
   public static boolean toggleEntryState = true;
   public static int ballsInConveyer; 
 
-  public static boolean previousEntryValue;
+  public static boolean previousEntryValue = true;
   public static boolean previousIndexerValue;
 
   public static boolean entrySensorValue;
@@ -124,8 +124,10 @@ public class Robot extends TimedRobot {
     startingBallCount.addOption("3", 3);
 
     SmartDashboard.putData("startingBallCount", startingBallCount);
+
     
     
+    ballCount = startingBallCount.getSelected();
 
 
 
@@ -158,6 +160,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    // System.out.println("The Count Periodically is: ");
+    // System.out.println(ballCount);
 
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
@@ -201,7 +205,7 @@ public class Robot extends TimedRobot {
     // startValues = m_robotContainer.m_ballCounterSubsystem.getSensorValues();
 
     entrySensorValue = entrySensor.get();
-    startConveyorSensorValue = initialConveyorSensor.get(); //initial conveyor sensor
+    startConveyorSensorValue = (boolean) initialConveyorSensor.get(); //initial conveyor sensor
     endConveyorSensorValue = endConveyorSensor.get();
     indexerSensorValue = indexerSensor.get();
     SmartDashboard.putBoolean("Entry sensor", entrySensorValue);
@@ -209,7 +213,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("End conveyor sensor", endConveyorSensorValue);
     SmartDashboard.putBoolean("Indexer sensor value", indexerSensorValue);
 
-    ballCount = startingBallCount.getSelected();
+    
     //System.out.println(initialConveyorSensorValue);
 
     // if(!initialConveyorSensorValue){
@@ -220,7 +224,7 @@ public class Robot extends TimedRobot {
 
    
       // true = no ball 
-    if (previousEntryValue == true && initialConveyorSensor.get() == false) {
+    if (previousEntryValue == true && startConveyorSensorValue == false) {
       previousEntryValue = false;
       ballCount++;
     }
