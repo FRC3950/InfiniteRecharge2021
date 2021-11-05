@@ -63,6 +63,7 @@ public class RobotContainer {
   public final ShootBallCommand m_shootBallCommand = new ShootBallCommand(m_ballManipulatorSubsystem, m_shooterSubsystem, m_intakeSubsystem, m_limelightSubsystem);
   public final BUTTONShootBallCommand m_BUTTONShootBallCommand = new BUTTONShootBallCommand(m_ballManipulatorSubsystem, m_shooterSubsystem, m_intakeSubsystem, m_limelightSubsystem);
   public final TurretSetAngleCommand m_turretSetAngleCommand = new TurretSetAngleCommand(m_limelightSubsystem, m_turretSubsystem);
+  public final ResetCountCommand m_resetCountCommand = new ResetCountCommand();
   //public final TurretSpinCommand m_turretSpinCommand = new TurretSpinCommand(m_turretSubsystem);
   public final TurretSpinLeftCommand m_turretSpinLeftCommand = new TurretSpinLeftCommand(m_turretSubsystem);
   public final TurretSpinRightCommand m_turretSpinRightCommand = new TurretSpinRightCommand(m_turretSubsystem);
@@ -134,10 +135,10 @@ public class RobotContainer {
     xboxControllerBButton.whenPressed(m_intakeLiftCommand);
     //We need to find out why X button is not turning on motor
     xboxControllerXButton.whileHeld(m_intakeBallCommand);
-    //xboxControllerYButton.whileHeld(m_ballManipulateCommand);
+    xboxControllerYButton.whileHeld(m_ballManipulateCommand);
     xboxControllerLBButton.whileHeld(m_climberLowerCommand);
     xboxControllerRBButton.whileHeld(m_climberRaiseCommand);
-    //xboxControllerStartButton.whenPressed(m_ballOverrideCommand);
+    xboxControllerStartButton.whenPressed(m_resetCountCommand);
     xboxControllerBackButton.whileHeld(m_outtakeBallCommand);
 
     

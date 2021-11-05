@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.subsystems.BallManipulatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -28,8 +29,10 @@ public class OuttakeBallCommand extends CommandBase {
   public void execute() {
     m_intakeSubsystem.setIntakeMotor(-1.0);
     m_intakeSubsystem.setSingulatorMotor(-1.0);
-    m_ballManipulatorSubsystem.setBallIndexerMotor(-1.0);
+    m_ballManipulatorSubsystem.setBallIndexerMotor(-0.8);
     m_ballManipulatorSubsystem.setConveyorMotor(1.0);
+    
+   
   }
 
   // Called once the command ends or is interrupted.

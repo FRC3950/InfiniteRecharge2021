@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -54,6 +55,7 @@ public class TurretSetAngleCommand extends CommandBase {
     // if(m_limelightSubsystem.getAngle() < 1 && m_limelightSubsystem.getAngle() > -1){
     //   finished = true;
     // }
+    SmartDashboard.putString("Limelight", "on");
   }
 
   // Called once the command ends or is interrupted.

@@ -51,7 +51,7 @@ public class IntakeBallCommand extends CommandBase {
     // int ballCount = m_ballCounterSubsystem.;
     //int ballInIntake = m_ballCounterSubsystem.getEntrySensorValue();
     //boolean intakePosition = m_intakeSubsystem.intakePosition();
-    if(Robot.ballCount < 4 && Robot.indexerSensorValue == true){
+    if(Robot.ballCount < 3 && Robot.indexerSensorValue == true){
       m_intakeSubsystem.setIntakeMotor(1.0);
       m_intakeSubsystem.setSingulatorMotor(1.0);
       m_ballManipulatorSubsystem.setBallIndexerMotor(1.0);
@@ -60,26 +60,38 @@ public class IntakeBallCommand extends CommandBase {
       System.out.println(Robot.ballCount);
     }
 
-   else if(Robot.ballCount < 4 && Robot.indexerSensorValue == false){ 
+   else if(Robot.ballCount < 3 && Robot.indexerSensorValue == false){ 
       m_intakeSubsystem.setIntakeMotor(1.0);
       m_intakeSubsystem.setSingulatorMotor(1.0);
-      m_ballManipulatorSubsystem.setBallIndexerMotor(0);
+      m_ballManipulatorSubsystem.setBallIndexerMotor(0.0);
       m_ballManipulatorSubsystem.setConveyorMotor(-1.0);
       System.out.println(Robot.ballCount);
       
     } 
-    else if((Robot.ballCount >= 4 && Robot.entrySensorValue == true)){
-      m_intakeSubsystem.setIntakeMotor(1.0);
-      m_intakeSubsystem.setSingulatorMotor(1.0);
+    /*else if(Robot.indexerSensorValue == true){
+      m_ballManipulatorSubsystem.setBallIndexerMotor(0.0);
+    } */
+    else if(Robot.ballCount > 3 && Robot.entrySensorValue == true){
+      m_intakeSubsystem.setIntakeMotor(0.0);
+      m_intakeSubsystem.setSingulatorMotor(0.0);
+      m_ballManipulatorSubsystem.setBallIndexerMotor(0.0);
+      m_ballManipulatorSubsystem.setConveyorMotor(0.0);
 
+    }
+    else if(Robot.ballCount > 3 && Robot.entrySensorValue == false){ //redundant but just in case
+      m_intakeSubsystem.setIntakeMotor(0.0);
+      m_intakeSubsystem.setSingulatorMotor(0.0);
+      m_ballManipulatorSubsystem.setBallIndexerMotor(0.0);
+      m_ballManipulatorSubsystem.setConveyorMotor(0.0);
     } 
 
-    else if((Robot.ballCount >= 4 && Robot.entrySensorValue == false)){
-      m_intakeSubsystem.setIntakeMotor(0);
-      m_intakeSubsystem.setSingulatorMotor(0);
-      m_ballManipulatorSubsystem.setBallIndexerMotor(0);
-      m_ballManipulatorSubsystem.setConveyorMotor(0);
-    }
+
+    // else if((Robot.ballCount >= 3 && Robot.entrySensorValue == true)){
+    //   m_intakeSubsystem.setIntakeMotor(0);
+    //   m_intakeSubsystem.setSingulatorMotor(0);
+    //   m_ballManipulatorSubsystem.setBallIndexerMotor(0);
+    //   m_ballManipulatorSubsystem.setConveyorMotor(0);
+    // }
 
 
 

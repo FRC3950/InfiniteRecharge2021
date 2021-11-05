@@ -54,7 +54,7 @@ public class BUTTONShootBallCommand extends CommandBase {
       m_intakeSubsystem.setSingulatorMotor(.4);
       m_ballManipulatorSubsystem.setConveyorMotor(-1);
       m_ballManipulatorSubsystem.setBallIndexerMotor(1); 
-      m_intakeSubsystem.setIntakeMotor(1); 
+      //m_intakeSubsystem.setIntakeMotor(1); 
     }
     //System.out.println("SET" + setSpeed + "   ACTUAL" + m_shooterSubsystem.getVelocityFromEncoder());
     // if(m_ballCounterSubsystem.getBallCount() == 0){

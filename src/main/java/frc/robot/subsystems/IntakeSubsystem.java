@@ -52,7 +52,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public void changeIntakePosition() {
     if(m_intakeSolenoid.get() == DoubleSolenoid.Value.kReverse){
       m_intakeSolenoid.set(DoubleSolenoid.Value.kForward);
-    } else{
+    } 
+    else {
       m_intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
   }
