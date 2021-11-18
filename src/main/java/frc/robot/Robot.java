@@ -272,6 +272,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    // new AutoDriveForwardCommand(drivetrainSubsystem);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     // ballCount = m_robotContainer.m_ballCounterChooser.getSelected();
 
@@ -299,7 +300,7 @@ public class Robot extends TimedRobot {
     //     new BUTTONShootBallCommand(ballManipulatorSubsystem, shooterSubsystem, intakeSubsystem, limelightSubsystem),
     //     new IntakeLiftCommand(intakeSubsystem),
     //     new ParallelDeadlineGroup(
-    //       new AutoDriveForwardCommand(drivetrainSubsystem),
+           //new AutoDriveForwardCommand(drivetrainSubsystem);
     //       new BallManipulateCommand(intakeSubsystem, ballManipulatorSubsystem, ballCounterSubsystem)
     //     ),
     //       new AutoDriveBackwardCommand(drivetrainSubsystem),

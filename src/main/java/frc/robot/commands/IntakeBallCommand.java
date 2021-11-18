@@ -71,7 +71,7 @@ public class IntakeBallCommand extends CommandBase {
     /*else if(Robot.indexerSensorValue == true){
       m_ballManipulatorSubsystem.setBallIndexerMotor(0.0);
     } */
-    else if(Robot.ballCount > 3 && Robot.entrySensorValue == true){
+    else if(Robot.ballCount > 3 && Robot.entrySensorValue == true){ 
       m_intakeSubsystem.setIntakeMotor(0.0);
       m_intakeSubsystem.setSingulatorMotor(0.0);
       m_ballManipulatorSubsystem.setBallIndexerMotor(0.0);
@@ -115,7 +115,8 @@ public class IntakeBallCommand extends CommandBase {
     m_intakeSubsystem.setSingulatorMotor(0);
     m_ballManipulatorSubsystem.setBallIndexerMotor(0);
     m_ballManipulatorSubsystem.setConveyorMotor(0);
-
+    m_intakeSubsystem.changeIntakePosition();
+    //l
 
   }
 

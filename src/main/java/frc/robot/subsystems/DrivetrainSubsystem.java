@@ -62,6 +62,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //   y = 0;
     // }
     y = y * y * y;
+    twist = twist * twist * twist;
     m_drive.arcadeDrive(-y, twist);
     //System.out.println("twist"+ twist);
     //System.out.println("y"+ y);

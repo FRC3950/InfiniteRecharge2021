@@ -25,13 +25,14 @@ public class AutoDriveForwardCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("Auto runs at start");
     finished = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    finished = m_drivetrainSubsystem.autoDriveToBall(800000, true);
+    finished = m_drivetrainSubsystem.autoDriveToBall(150000, true);
   }
 
   // Called once the command ends or is interrupted.

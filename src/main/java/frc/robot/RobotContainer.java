@@ -71,32 +71,36 @@ public class RobotContainer {
    public static SendableChooser<Integer> m_ballCounterChooser = new SendableChooser<Integer>();
 
 
-    public Joystick driveStick = new Joystick(0);
-    public XboxController xboxController = new XboxController(1);
+    public Joystick firstDriveStick = new Joystick(0);
+    public Joystick secondDriveStick = new Joystick(1);
 
-    public Button driveStick1Button = new JoystickButton(driveStick, 1);
-    public Button driveStick2Button = new JoystickButton(driveStick, 2);
-    public Button driveStick3Button = new JoystickButton(driveStick, 3);
-    public Button driveStick4Button = new JoystickButton(driveStick, 4);
-    public Button driveStick5Button = new JoystickButton(driveStick, 5);
-    public Button driveStick6Button = new JoystickButton(driveStick, 6);
-    public Button driveStick7Button = new JoystickButton(driveStick, 7);
-    public Button driveStick8Button = new JoystickButton(driveStick, 8);
-    public Button driveStick9Button = new JoystickButton(driveStick, 9);
-    public Button driveStick10Button = new JoystickButton(driveStick, 10);
-    public Button driveStick11Button = new JoystickButton(driveStick, 11);
-    public Button driveStick12Button = new JoystickButton(driveStick, 12);  
+    public Button firstDriveStick1Button = new JoystickButton(firstDriveStick, 1);
+    public Button firstDriveStick2Button = new JoystickButton(firstDriveStick, 2);
+    public Button firstDriveStick3Button = new JoystickButton(firstDriveStick, 3);
+    public Button firstDriveStick4Button = new JoystickButton(firstDriveStick, 4);
+    public Button firstDriveStick5Button = new JoystickButton(firstDriveStick, 5);
+    public Button firstDriveStick6Button = new JoystickButton(firstDriveStick, 6);
+    public Button firstDriveStick7Button = new JoystickButton(firstDriveStick, 7);
+    public Button firstDriveStick8Button = new JoystickButton(firstDriveStick, 8);
+    public Button firstDriveStick9Button = new JoystickButton(firstDriveStick, 9);
+    public Button firstDriveStick10Button = new JoystickButton(firstDriveStick, 10);
+    public Button firstDriveStick11Button = new JoystickButton(firstDriveStick, 11);
+    public Button firstDriveStick12Button = new JoystickButton(firstDriveStick, 12);  
   
-    public Button xboxControllerAButton = new JoystickButton(xboxController, 1);
-    public Button xboxControllerBButton = new JoystickButton(xboxController, 2);
-    public Button xboxControllerXButton = new JoystickButton(xboxController, 3);
-    public Button xboxControllerYButton = new JoystickButton(xboxController, 4);
-    public Button xboxControllerLBButton = new JoystickButton(xboxController, 5);
-    public Button xboxControllerRBButton = new JoystickButton(xboxController, 6);  
-    public Button xboxControllerBackButton = new JoystickButton(xboxController, 7);
-    public Button xboxControllerStartButton = new JoystickButton(xboxController, 8);
-    public Button xboxControllerLeftStickButton = new JoystickButton(xboxController, 9);
-    public Button xboxControllerRightStickButton = new JoystickButton(xboxController, 10);
+    public Button secondDriveStick1Button = new JoystickButton(secondDriveStick, 1);
+    public Button secondDriveStick2Button = new JoystickButton(secondDriveStick, 2);
+    public Button secondDriveStick3Button = new JoystickButton(secondDriveStick, 3);
+    public Button secondDriveStick4Button = new JoystickButton(secondDriveStick, 4); 
+    public Button secondDriveStick5Button = new JoystickButton(secondDriveStick, 5); 
+    public Button secondDriveStick6Button = new JoystickButton(secondDriveStick, 6);   
+    public Button secondDriveStick7Button = new JoystickButton(secondDriveStick, 7); 
+    public Button secondDriveStick8Button = new JoystickButton(secondDriveStick, 8); 
+    public Button secondDriveStick9Button = new JoystickButton(secondDriveStick, 9); 
+    public Button secondDriveStick10Button = new JoystickButton(secondDriveStick, 10);
+
+    //1.
+    SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -116,6 +120,9 @@ public class RobotContainer {
 
     // SmartDashboard.putData(m_ballCounterChooser);
 
+    m_chooser.setDefaultOption("AutoDrive", m_autoDriveForwardCommand);
+    //put on dashboard in next line later
+
 
   }
 
@@ -130,23 +137,19 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    xboxControllerAButton.whileHeld(m_BUTTONShootBallCommand);
-    //xboxControllerBButton.toggleWhenPressed(m_shootBallCommand);
-    xboxControllerBButton.whenPressed(m_intakeLiftCommand);
-    //We need to find out why X button is not turning on motor
-    xboxControllerXButton.whileHeld(m_intakeBallCommand);
-    xboxControllerYButton.whileHeld(m_ballManipulateCommand);
-    xboxControllerLBButton.whileHeld(m_climberLowerCommand);
-    xboxControllerRBButton.whileHeld(m_climberRaiseCommand);
-    xboxControllerStartButton.whenPressed(m_resetCountCommand);
-    xboxControllerBackButton.whileHeld(m_outtakeBallCommand);
+    secondDriveStick1Button.whileHeld(m_BUTTONShootBallCommand);
+    secondDriveStick9Button.whileHeld(m_intakeBallCommand);
+    secondDriveStick10Button.whileHeld(m_outtakeBallCommand);
+    secondDriveStick2Button.whileHeld(m_resetCountCommand);
+    
+
+
 
     
-    driveStick2Button.whenPressed(m_driveShiftGearCommand);
-    //driveStick9Button.whenPressed(m_resetBallCountCommand);
-    driveStick10Button.toggleWhenPressed(m_turretSetAngleCommand);
-    driveStick11Button.whileHeld(m_turretSpinLeftCommand);
-    driveStick12Button.whileHeld(m_turretSpinRightCommand);
+    firstDriveStick2Button.whenPressed(m_driveShiftGearCommand);
+    firstDriveStick10Button.toggleWhenPressed(m_turretSetAngleCommand);
+    firstDriveStick11Button.whileHeld(m_turretSpinLeftCommand);
+    firstDriveStick12Button.whileHeld(m_turretSpinRightCommand);
 
 
 
@@ -161,11 +164,9 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     
    
-    return m_autoDriveForwardCommand(); 
+    return m_chooser.getSelected(); 
 
   }
 
-  private Command m_autoDriveForwardCommand() {
-    return null;
-  }
+  
 }

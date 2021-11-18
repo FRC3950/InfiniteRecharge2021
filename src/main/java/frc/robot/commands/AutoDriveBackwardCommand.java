@@ -25,7 +25,8 @@ public class AutoDriveBackwardCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    finished = false;
+    // finished = false;
+    System.out.println("Auto ran  ");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
