@@ -68,6 +68,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //System.out.println("y"+ y);
   }
 
+
+  public void dualJoystickArcadeDrive(double joy1Y, double joy2Y){
+
+    m_drive.arcadeDrive(joy1Y*joy1Y, joy2Y);
+
+  }
+  public void dualJoystickTankDrive(){
+
+  }
   //Sets the motor to a certain speed without the joystick 
   //Used for Autonomous Code
   public void motorSpeed(double speed){

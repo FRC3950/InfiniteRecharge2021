@@ -42,6 +42,9 @@ public class RobotContainer {
   public final ShooterSubsystem m_shooterSubsystem  = new ShooterSubsystem();
   public final TurretSubsystem m_turretSubsystem = new TurretSubsystem();
   public final GyroSubsystem m_gyroSubsystem = new GyroSubsystem();
+
+  public Joystick firstDriveStick = new Joystick(0);
+  public Joystick secondDriveStick = new Joystick(1);
   
 
   //public final AutonomousCommandGroup2020 m_autonomousCommandGroup2020 = new AutonomousCommandGroup2020(m_drivetrainSubsystem, m_shooterSubsystem, m_ballManipulatorSubsystem, m_ballCounterSubsystem, m_intakeSubsystem, m_limelightSubsystem, m_turretSubsystem);
@@ -55,7 +58,10 @@ public class RobotContainer {
   public final ClimberLowerCommand m_climberLowerCommand = new ClimberLowerCommand(m_climberSubsystem);
   public final ClimberRaiseCommand m_climberRaiseCommand = new ClimberRaiseCommand(m_climberSubsystem);
   public final DriveCommand m_driveCommand = new DriveCommand(m_drivetrainSubsystem);
+
+  public final DriveCommandJoysticks m_driveCommandJoySticks = new DriveCommandJoysticks(m_drivetrainSubsystem, firstDriveStick, secondDriveStick);
   public final DriveShiftGearCommand m_driveShiftGearCommand = new DriveShiftGearCommand(m_drivetrainSubsystem);
+  
   public final IntakeBallCommand m_intakeBallCommand = new IntakeBallCommand(m_intakeSubsystem, m_ballManipulatorSubsystem);
   public final OuttakeBallCommand m_outtakeBallCommand = new OuttakeBallCommand(m_intakeSubsystem, m_ballManipulatorSubsystem);
   public final IntakeLiftCommand m_intakeLiftCommand = new IntakeLiftCommand(m_intakeSubsystem);
@@ -71,8 +77,7 @@ public class RobotContainer {
    public static SendableChooser<Integer> m_ballCounterChooser = new SendableChooser<Integer>();
 
 
-    public Joystick firstDriveStick = new Joystick(0);
-    public Joystick secondDriveStick = new Joystick(1);
+   
 
     public Button firstDriveStick1Button = new JoystickButton(firstDriveStick, 1);
     public Button firstDriveStick2Button = new JoystickButton(firstDriveStick, 2);
@@ -108,7 +113,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();    
-    CommandScheduler.getInstance().setDefaultCommand(m_drivetrainSubsystem, m_driveCommand);
+    CommandScheduler.getInstance().setDefaultCommand(m_drivetrainSubsystem, m_driveCommandJoySticks);
     //CommandScheduler.getInstance().setDefaultCommand(m_intakeSubsystem, m_intakeBallCommand);
     //CommandScheduler.getInstance().setDefaultCommand(m_ballManipulatorSubsystem, m_ballManipulateCommand);
     
